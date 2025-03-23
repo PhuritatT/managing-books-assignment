@@ -21,6 +21,14 @@ public class addBook {
     @Schema(description = "Published date of the book", example = "1925-04-10")
     private Date publishedDate;
 
+    public String addBookString() {
+        return "{" +
+                "\"title\":\"" + (title != null ? title.replace("\"", "\\\"") : "") + "\"," +
+                "\"author\":\"" + (author != null ? author.replace("\"", "\\\"") : "") + "\"," +
+                "\"publishedDate\":" + (publishedDate != null ? "\"" + publishedDate + "\"" : null) +
+                "}";
+    }
+
     public String getTitle() {
         return title;
     }
