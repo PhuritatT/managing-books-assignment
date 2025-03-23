@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TbBooksRepositories extends JpaRepository<tbBooks, Integer> {
-    List<BookProjection> findByAuthorContaining(String author);
+    List<BookProjection> findByAuthor(String author);
     List<BookProjection> findAllBy();
 }

@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @Service
-public class bookManagmentServiceImp implements BookManagementService {
+public class BookManagmentServiceImp implements BookManagementService {
 
     @Autowired
     private TbBooksRepositories tbBooksRepositories;
@@ -70,10 +70,20 @@ public class bookManagmentServiceImp implements BookManagementService {
             int year = cal.get(Calendar.YEAR);
             int currentYear = currentCal.get(Calendar.YEAR);
 
-            if (year > currentYear && year > currentYear + 543) {
+            if (year <= 1000) {
+                apiResponseAddBook errorResponse = new apiResponseAddBook(false, "Book cannot be published before 1000s");
+                return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+            }
+            if (year > 1000 && year < 2100 && year > currentYear) {
                 apiResponseAddBook errorResponse = new apiResponseAddBook(false, "Book cannot be published in the future");
                 return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
             }
+
+            if (year > 1000 && year > 2100 && year > currentYear + 543) {
+                apiResponseAddBook errorResponse = new apiResponseAddBook(false, "Book cannot be published in the future");
+                return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+            }
+
             book.setPublishedDate(parsedDate);
         }
         tbBooks tbBooks = new tbBooks();
@@ -93,10 +103,10 @@ public class bookManagmentServiceImp implements BookManagementService {
     }
 
     public ResponseEntity<apiResponseGet> getBookByAuthor(String author) {
-        List<BookProjection> bookData = this.tbBooksRepositories.findByAuthorContaining(author);
+        List<BookProjection> bookData = this.tbBooksRepositories.findByAuthor(author);
         if (bookData != null) {
             BookProjection[] bookArray = bookData.toArray(new BookProjection[0]);
-            apiResponseGet response = new apiResponseGet(true, "Book Founded.", bookArray);
+            apiResponseGet response = new apiResponseGet(true, "Books retrieved successfully", bookArray);
             return ResponseEntity.ok(response);
         } else {
             apiResponseGet response = new apiResponseGet(false,"Book Not Found.", null);
