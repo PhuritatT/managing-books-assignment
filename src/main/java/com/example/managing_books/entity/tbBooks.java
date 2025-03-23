@@ -1,10 +1,16 @@
 package com.example.managing_books.entity;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Indexed;
 
 import java.sql.Date;
 
-@Entity(name = "tb_books")
+@Entity
+@Table(name = "tb_books",
+        indexes = {
+                @Index(name = "idx_author", columnList = "author")
+        }
+)
 public class tbBooks {
 
     @Id

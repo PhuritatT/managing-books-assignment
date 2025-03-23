@@ -1,8 +1,10 @@
 package com.example.managing_books.service.imp;
 
 import ch.qos.logback.classic.Logger;
+import com.example.managing_books.dtos.BookProjection;
 import com.example.managing_books.dtos.addBook;
 import com.example.managing_books.dtos.apiResponseAddBook;
+import com.example.managing_books.dtos.apiResponseGet;
 import com.example.managing_books.entity.tbBooks;
 import com.example.managing_books.repositories.TbBooksRepositories;
 import com.example.managing_books.service.BookManagementService;
@@ -16,6 +18,7 @@ import java.net.URI;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class bookManagmentServiceImp implements BookManagementService {
@@ -86,6 +89,18 @@ public class bookManagmentServiceImp implements BookManagementService {
             e.printStackTrace();
             apiResponseAddBook errorResponse = new apiResponseAddBook(false, "Internal server error");
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<apiResponseGet> getBookByAuthor(String author) {
+        List<BookProjection> bookData = this.tbBooksRepositories.findByAuthorContaining(author);
+        if (bookData != null) {
+            BookProjection[] bookArray = bookData.toArray(new BookProjection[0]);
+            apiResponseGet response = new apiResponseGet(true, "Book Founded.", bookArray);
+            return ResponseEntity.ok(response);
+        } else {
+            apiResponseGet response = new apiResponseGet(false,"Book Not Found.", null);
+            return ResponseEntity.ok(response);
         }
     }
 
