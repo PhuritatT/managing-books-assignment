@@ -8,7 +8,7 @@
    `publishedDate` date DEFAULT NULL,
    `createdAt` timestamp NULL DEFAULT NULL,
    PRIMARY KEY (`id`)
-   ) ENGINE=InnoDB AUTO_INCREMENT=599 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+   ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
    ```
 2. Change database connection config ("src/main/resources/application.properties")
    ```   
