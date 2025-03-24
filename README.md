@@ -17,7 +17,7 @@
     spring.datasource.password= "USE YOUR OWN PASSWORD"
     ```
 3. Run command ```mvn clean install``` in terminal that on the location of this project
-4. Run command ```mvn spring-boot:start```
+4. Run command ```mvn spring-boot:run```
 5. Open ```http://localhost:8080/swagger-ui/index.html``` for api document
 
 ## Integration Test
