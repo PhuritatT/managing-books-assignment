@@ -21,4 +21,4 @@
 5. Open ```http://localhost:8080/swagger-ui/index.html``` for api document
 
 ## Integration Test
-1. Run command ```mvn test``` and wait until it show result
+1. Run command ```./mvnw verify``` and wait until it show result
